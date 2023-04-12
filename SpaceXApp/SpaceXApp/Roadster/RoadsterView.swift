@@ -27,7 +27,7 @@ struct RoadsterView: View {
                             .padding()
 
                         YouTubeView(youtubeURL: "https://www.youtube.com/watch?v=wbSwFU6tY1c")
-                                                    .frame(width: 300, height: 300)
+                                                    .frame(width: 400)
                                                     .padding()
                     } else {
                         Text("Can't load the data")
