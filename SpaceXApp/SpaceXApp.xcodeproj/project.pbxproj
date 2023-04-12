@@ -7,10 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8ED06A4C29E621EB00393880 /* RoadsterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ED06A4929E621EB00393880 /* RoadsterViewModel.swift */; };
+		8ED06A4D29E621EB00393880 /* RoadstarPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ED06A4A29E621EB00393880 /* RoadstarPresenter.swift */; };
+		8ED06A4E29E621EB00393880 /* RoadsterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ED06A4B29E621EB00393880 /* RoadsterView.swift */; };
 		AA8D4BA429BF773E00F415AF /* RoadsterModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA8D4BA329BF773E00F415AF /* RoadsterModel.swift */; };
-		AA8D4BA929BF87F500F415AF /* RoadstarPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA8D4BA829BF87F500F415AF /* RoadstarPresenter.swift */; };
-		AA8D4BAB29BF894100F415AF /* RoadsterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA8D4BAA29BF894100F415AF /* RoadsterViewModel.swift */; };
-		AA8D4BAD29BFC1EA00F415AF /* RoadsterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA8D4BAC29BFC1EA00F415AF /* RoadsterView.swift */; };
 		AACA350A29BC03020013F3E7 /* SpaceXApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = AACA350929BC03020013F3E7 /* SpaceXApp.swift */; };
 		AACA350E29BC03040013F3E7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AACA350D29BC03040013F3E7 /* Assets.xcassets */; };
 		AACA351129BC03040013F3E7 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AACA351029BC03040013F3E7 /* Preview Assets.xcassets */; };
@@ -34,10 +34,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		8ED06A4929E621EB00393880 /* RoadsterViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoadsterViewModel.swift; sourceTree = "<group>"; };
+		8ED06A4A29E621EB00393880 /* RoadstarPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoadstarPresenter.swift; sourceTree = "<group>"; };
+		8ED06A4B29E621EB00393880 /* RoadsterView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoadsterView.swift; sourceTree = "<group>"; };
 		AA8D4BA329BF773E00F415AF /* RoadsterModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoadsterModel.swift; sourceTree = "<group>"; };
-		AA8D4BA829BF87F500F415AF /* RoadstarPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = RoadstarPresenter.swift; path = ../../../../../ABDALLAE/Documents/SpaceXApp/SpaceXApp/Roadster/RoadstarPresenter.swift; sourceTree = "<group>"; };
-		AA8D4BAA29BF894100F415AF /* RoadsterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = RoadsterViewModel.swift; path = ../../../../../ABDALLAE/Documents/SpaceXApp/SpaceXApp/Roadster/RoadsterViewModel.swift; sourceTree = "<group>"; };
-		AA8D4BAC29BFC1EA00F415AF /* RoadsterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = RoadsterView.swift; path = ../../../../../ABDALLAE/Documents/SpaceXApp/SpaceXApp/Roadster/RoadsterView.swift; sourceTree = "<group>"; };
 		AACA350629BC03020013F3E7 /* SpaceXApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SpaceXApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AACA350929BC03020013F3E7 /* SpaceXApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpaceXApp.swift; sourceTree = "<group>"; };
 		AACA350D29BC03040013F3E7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -82,9 +82,9 @@
 		AA8D4BA529BF77AF00F415AF /* Roadster */ = {
 			isa = PBXGroup;
 			children = (
-				AA8D4BA829BF87F500F415AF /* RoadstarPresenter.swift */,
-				AA8D4BAA29BF894100F415AF /* RoadsterViewModel.swift */,
-				AA8D4BAC29BFC1EA00F415AF /* RoadsterView.swift */,
+				8ED06A4A29E621EB00393880 /* RoadstarPresenter.swift */,
+				8ED06A4B29E621EB00393880 /* RoadsterView.swift */,
+				8ED06A4929E621EB00393880 /* RoadsterViewModel.swift */,
 			);
 			path = Roadster;
 			sourceTree = "<group>";
@@ -286,22 +286,22 @@
 			buildActionMask = 2147483647;
 			files = (
 				AACA352F29BC03300013F3E7 /* LaunchModel.swift in Sources */,
-				AA8D4BA929BF87F500F415AF /* RoadstarPresenter.swift in Sources */,
 				AACA352E29BC03300013F3E7 /* RockectModel.swift in Sources */,
 				AACA353429BC03300013F3E7 /* LaunchesViewModel.swift in Sources */,
-				AA8D4BAD29BFC1EA00F415AF /* RoadsterView.swift in Sources */,
 				AACA353C29BC03300013F3E7 /* LaunchesDetailView.swift in Sources */,
+				8ED06A4D29E621EB00393880 /* RoadstarPresenter.swift in Sources */,
 				AACA353A29BC03300013F3E7 /* RocketsView.swift in Sources */,
 				AACA353729BC03300013F3E7 /* RocketPresenter.swift in Sources */,
 				AACA353229BC03300013F3E7 /* LaunchesCell.swift in Sources */,
 				AACA353129BC03300013F3E7 /* LaunchesView.swift in Sources */,
-				AA8D4BAB29BF894100F415AF /* RoadsterViewModel.swift in Sources */,
 				AACA353829BC03300013F3E7 /* RocketCell.swift in Sources */,
 				AACA353329BC03300013F3E7 /* LaunchesPresenter.swift in Sources */,
+				8ED06A4C29E621EB00393880 /* RoadsterViewModel.swift in Sources */,
 				AACA353D29BC03300013F3E7 /* LauncheDetailPresenter.swift in Sources */,
 				AA8D4BA429BF773E00F415AF /* RoadsterModel.swift in Sources */,
 				AACA353629BC03300013F3E7 /* Service.swift in Sources */,
 				AACA353929BC03300013F3E7 /* RocketsViewModel.swift in Sources */,
+				8ED06A4E29E621EB00393880 /* RoadsterView.swift in Sources */,
 				AACA353029BC03300013F3E7 /* HomeView.swift in Sources */,
 				AACA350A29BC03020013F3E7 /* SpaceXApp.swift in Sources */,
 				AACA353B29BC03300013F3E7 /* LaunchesDetailViewModel.swift in Sources */,

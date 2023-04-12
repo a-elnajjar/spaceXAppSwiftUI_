@@ -7,7 +7,7 @@
 
 import SwiftUI
 import Kingfisher
-import AVKit
+import WebKit
 
 struct RoadsterView: View {
     @ObservedObject var viewModel:RoadsterViewModel = RoadsterViewModel()
@@ -25,7 +25,10 @@ struct RoadsterView: View {
                         Text("Speed in \(roadster.speed ?? 0.0 ) K/H").bold()
                         Text(roadster.detail  ?? "")
                             .padding()
-                        VideoPlayer(player: AVPlayer(url: URL(string:"https://www.youtube.com/watch?v=wbSwFU6tY1c")!)).frame(height: 400)
+
+                        YouTubeView(youtubeURL: "https://www.youtube.com/watch?v=wbSwFU6tY1c")
+                                                    .frame(width: 300, height: 300)
+                                                    .padding()
                     } else {
                         Text("Can't load the data")
                     }
@@ -38,6 +41,21 @@ struct RoadsterView: View {
                 })
        
         }
+    }
+}
+
+
+struct YouTubeView: UIViewRepresentable {
+    @State public var youtubeURL:String = ""
+    
+    func makeUIView(context: Context) -> WKWebView {
+        return WKWebView()
+    }
+    
+    func updateUIView(_ uiView: WKWebView, context: Context) {
+        guard let url = URL(string: self.youtubeURL) else { return }
+        uiView.scrollView.isScrollEnabled = false
+        uiView.load(URLRequest(url: url))
     }
 }
 
