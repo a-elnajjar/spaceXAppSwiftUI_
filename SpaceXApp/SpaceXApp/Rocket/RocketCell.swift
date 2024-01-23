@@ -17,13 +17,15 @@ struct RocketCell:View {
     }
     
     var body: some View {
-        VStack(spacing: 16){
-            KFImage(URL(string:self.presenter.image!))
-                .cancelOnDisappear(true)
-                .resizable()
-                .aspectRatio(contentMode: .fit)
-                .frame( width: 600,height: 200)
-            Text(self.presenter.name!)
+        LazyVStack(spacing: 16){
+            if let imageUrlString = self.presenter.image, let url = URL(string: imageUrlString) {
+                KFImage(url)
+                    .cancelOnDisappear(true)
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .frame( width: 600,height: 200)
+            }
+            Text(self.presenter.name ?? "can't get the name")
         }
     }
 }

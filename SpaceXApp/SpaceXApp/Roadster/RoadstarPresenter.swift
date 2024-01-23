@@ -18,9 +18,9 @@ struct RoadstarPresenter {
 
     init(with model:RoadsterModel) {
         self.image = model.flickrImages.first ?? ""
-        self.title = model.name ?? ""
-        self.detail = model.details ?? ""
-        self.speed = model.speedKph ?? 0
-        self.videoURL =  model.video ?? ""
+        self.title = model.name 
+        self.detail = model.details 
+        self.speed = model.speedKph 
+        self.videoURL =  model.video 
     }
 }

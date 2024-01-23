@@ -14,6 +14,6 @@ struct RocketPresenter:Identifiable{
     
     init(with model: RocketModel) {
         self.image  = model.flickrImages.first ?? ""
-        self.name =  model.name ?? ""
+        self.name =  model.name 
     }
 }
