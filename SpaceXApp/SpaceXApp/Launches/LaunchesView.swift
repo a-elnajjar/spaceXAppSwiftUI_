@@ -15,9 +15,9 @@ struct LaunchesView: View {
         NavigationView {
             ZStack {
                 if isGridView {
-                    gridView
+                    LaunchesGridView
                 } else {
-                    launchesList
+                    LaunchesListView
                 }
                 navigationLink
             }
@@ -32,7 +32,7 @@ struct LaunchesView: View {
         }
     }
 
-    private var launchesList: some View {
+    private var LaunchesListView: some View {
         List(viewModel.presenters) { item in
             LaunchesCell(presenters: item, isParentGrid: $isGridView )
                 .onTapGesture {
@@ -44,7 +44,7 @@ struct LaunchesView: View {
         }
     }
 
-    private var gridView: some View {
+    private var LaunchesGridView: some View {
         ScrollView {
             LazyVGrid(columns: Array(repeating: .init(), count: 2)) {
                 ForEach(viewModel.presenters) { item in
