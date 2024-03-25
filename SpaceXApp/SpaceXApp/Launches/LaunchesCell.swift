@@ -10,9 +10,12 @@ import Kingfisher
 
 struct LaunchesCell: View {
    private var presenters: LaunchesPresenter!
+    @Binding var isParentGrid: Bool
     
-    init(presenters: LaunchesPresenter!) {
+    // Initialize all stored properties in the init method
+    init(presenters: LaunchesPresenter, isParentGrid: Binding<Bool>) {
         self.presenters = presenters
+        self._isParentGrid = isParentGrid
     }
     
     var body: some View {
@@ -21,11 +24,13 @@ struct LaunchesCell: View {
                 .cancelOnDisappear(true)
                 .resizable()
                 .frame( width: 128,height: 128)
-            VStack(alignment: .leading, spacing:16){
-                Text(presenters.name)
-                Text(presenters.date)
-        
-            }
+            if !isParentGrid {
+                // Show or hide VStack based on isParentGrid
+                VStack {
+                    Text(presenters.name)
+                    Text(presenters.date)
+                }
+            } 
         }
     }
 }

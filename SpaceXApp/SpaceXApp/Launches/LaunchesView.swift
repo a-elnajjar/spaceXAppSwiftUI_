@@ -9,23 +9,51 @@ import SwiftUI
 
 struct LaunchesView: View {
     @ObservedObject var viewModel = LaunchesViewModel()
+    @State private var isGridView = false
 
     var body: some View {
         NavigationView {
             ZStack {
-                launchesList
+                if isGridView {
+                    gridView
+                } else {
+                    launchesList
+                }
                 navigationLink
             }
             .navigationBarTitle("Launches", displayMode: .inline)
+            .toolbar {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button(action: { isGridView.toggle() }) {
+                        Image(systemName: isGridView ? "list.bullet" : "square.grid.2x2")
+                    }
+                }
+            }
         }
     }
 
     private var launchesList: some View {
         List(viewModel.presenters) { item in
-            LaunchesCell(presenters: item)
+            LaunchesCell(presenters: item, isParentGrid: $isGridView )
                 .onTapGesture {
                     viewModel.itemSelected(at: item)
                 }
+        }
+        .onAppear {
+            viewModel.onAppear()
+        }
+    }
+
+    private var gridView: some View {
+        ScrollView {
+            LazyVGrid(columns: Array(repeating: .init(), count: 2)) {
+                ForEach(viewModel.presenters) { item in
+                    LaunchesCell(presenters: item, isParentGrid: $isGridView)
+                        .onTapGesture {
+                            viewModel.itemSelected(at: item)
+                        }
+                }
+            }
         }
         .onAppear {
             viewModel.onAppear()

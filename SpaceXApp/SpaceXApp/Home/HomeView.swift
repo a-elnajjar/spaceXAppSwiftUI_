@@ -1,23 +1,38 @@
 import SwiftUI
 
 struct HomeView: View {
+    enum Tab: Int {
+        case launches, rockets, roadster
+    }
+    
     var body: some View {
-        TabView{
+        TabView {
             LaunchesView()
-                .tabItem{
-                    Image(systemName: "burst")
-                    Text("Launches")
-                }.tag(0)
+                .tabItem {
+                    TabItemView(imageName: "burst", text: "Launches")
+                }.tag(Tab.launches.rawValue)
+            
             RocketsView()
-                .tabItem{
-                    Image(systemName: "location.north")
-                    Text("Rockets")
-                }.tag(1)
+                .tabItem {
+                    TabItemView(imageName: "location.north", text: "Rockets")
+                }.tag(Tab.rockets.rawValue)
+            
             RoadsterView()
-                .tabItem{
-                    Image(systemName: "star")
-                    Text("Roadster")
-                }.tag(2)
+                .tabItem {
+                    TabItemView(imageName: "star", text: "Roadster")
+                }.tag(Tab.roadster.rawValue)
+        }
+    }
+}
+
+struct TabItemView: View {
+    let imageName: String
+    let text: String
+    
+    var body: some View {
+        VStack {
+            Image(systemName: imageName)
+            Text(text)
         }
     }
 }
