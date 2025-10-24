@@ -8,16 +8,20 @@
 import SwiftUI
 
 struct RocketsView: View {
-    @ObservedObject var viewModel:RocketsViewModel = RocketsViewModel()
+    @StateObject private var viewModel = RocketsViewModel()
+
     var body: some View {
         NavigationView {
             ZStack {
-                List(self.viewModel.presenters){ item in
+                List(viewModel.presenters) { item in
                     RocketCell(presenter: item)
-                }.onAppear(perform:{
-                    self.viewModel.onAppear()
-                }).listStyle(PlainListStyle())
-            }.navigationBarTitle("Rocket",displayMode:.inline)
+                }
+                .listStyle(.plain)
+            }
+            .navigationBarTitle("Rocket", displayMode: .inline)
+        }
+        .onAppear {
+            viewModel.loadRocketsIfNeeded()
         }
     }
 }

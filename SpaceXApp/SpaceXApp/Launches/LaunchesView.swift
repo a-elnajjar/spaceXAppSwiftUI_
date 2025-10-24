@@ -8,16 +8,16 @@
 import SwiftUI
 
 struct LaunchesView: View {
-    @ObservedObject var viewModel = LaunchesViewModel()
+    @StateObject private var viewModel = LaunchesViewModel()
     @State private var isGridView = false
 
     var body: some View {
         NavigationView {
             ZStack {
                 if isGridView {
-                    LaunchesGridView
+                    launchesGridView
                 } else {
-                    LaunchesListView
+                    launchesListView
                 }
                 navigationLink
             }
@@ -29,22 +29,22 @@ struct LaunchesView: View {
                     }
                 }
             }
+            .onAppear {
+                viewModel.loadLaunchesIfNeeded()
+            }
         }
     }
 
-    private var LaunchesListView: some View {
+    private var launchesListView: some View {
         List(viewModel.presenters) { item in
             LaunchesCell(presenters: item, isParentGrid: $isGridView )
                 .onTapGesture {
                     viewModel.itemSelected(at: item)
                 }
         }
-        .onAppear {
-            viewModel.onAppear()
-        }
     }
 
-    private var LaunchesGridView: some View {
+    private var launchesGridView: some View {
         ScrollView {
             LazyVGrid(columns: Array(repeating: .init(), count: 2)) {
                 ForEach(viewModel.presenters) { item in
@@ -55,15 +55,15 @@ struct LaunchesView: View {
                 }
             }
         }
-        .onAppear {
-            viewModel.onAppear()
-        }
     }
 
     private var navigationLink: some View {
         NavigationLink(
             destination: LaunchesDetailView(viewModel: viewModel.selectedViewModel),
-            isActive: $viewModel.navigateToDetail,
+            isActive: Binding(
+                get: { viewModel.navigateToDetail },
+                set: { viewModel.navigateToDetail = $0 }
+            ),
             label: {
                 EmptyView()
             }

@@ -8,19 +8,35 @@
 import Foundation
 import Combine
 
-class RocketsViewModel: NSObject,ObservableObject {
-    private var task: Cancellable? = nil
+@MainActor
+final class RocketsViewModel: ObservableObject {
+    private var task: AnyCancellable?
     private var rockets: [RocketModel] = []
+    private var hasLoaded = false
+
     @Published var presenters: [RocketPresenter] = []
-    
-    func onAppear(){
-        self.task = Service.standard.get(path: .rockets , responseType:[RocketModel].self)
-            .map{[weak self] in
-                self?.rockets = $0
-                return $0.map{RocketPresenter(with: $0)}
+
+    func loadRocketsIfNeeded() {
+        guard !hasLoaded else { return }
+        hasLoaded = true
+
+        task = Service.standard.get(path: .rockets, responseType: [RocketModel].self)
+            .map { rockets -> (rockets: [RocketModel], presenters: [RocketPresenter]) in
+                let presenters = rockets.map { RocketPresenter(with: $0) }
+                return (rockets, presenters)
             }
-            .sink(receiveCompletion:{_ in },receiveValue:{  [weak self] presenters in
-                self?.presenters = presenters
+            .receive(on: DispatchQueue.main)
+            .sink(receiveCompletion: { [weak self] completion in
+                if case .failure = completion {
+                    self?.hasLoaded = false
+                }
+            }, receiveValue: { [weak self] output in
+                self?.rockets = output.rockets
+                self?.presenters = output.presenters
             })
+    }
+
+    deinit {
+        task?.cancel()
     }
 }

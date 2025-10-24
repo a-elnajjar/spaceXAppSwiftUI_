@@ -7,30 +7,36 @@
 
 import Foundation
 import Combine
-
 import SwiftUI
 
+@MainActor
+final class RoadsterViewModel: ObservableObject {
+    private var task: AnyCancellable?
+    private var hasLoaded = false
 
+    @Published var presenter: RoadstarPresenter?
 
-final class RoadsterViewModel: NSObject,ObservableObject {
-    private var task: Cancellable? = nil
-    private var roadster: RoadsterModel? = nil
-    @Published var presenter: RoadstarPresenter? = nil
+    init(presenter: RoadstarPresenter? = nil) {
+        self.presenter = presenter
+    }
 
-    func onAppear(){
-        
-        self.task = Service.standard.get(path: .roadster , responseType:RoadsterModel.self)
-            .map{[weak self] in
-                self?.roadster = $0
-                guard let roadster = self?.roadster  else {
-                    return nil
+    func loadRoadsterIfNeeded() {
+        guard !hasLoaded else { return }
+        hasLoaded = true
+
+        task = Service.standard.get(path: .roadster, responseType: RoadsterModel.self)
+            .map { RoadstarPresenter(with: $0) }
+            .receive(on: DispatchQueue.main)
+            .sink(receiveCompletion: { [weak self] completion in
+                if case .failure = completion {
+                    self?.hasLoaded = false
                 }
-
-                return RoadstarPresenter(with: roadster)
-            }
-            .sink(receiveCompletion:{_ in },receiveValue:{  [weak self] presenter in
+            }, receiveValue: { [weak self] presenter in
                 self?.presenter = presenter
-
             })
+    }
+
+    deinit {
+        task?.cancel()
     }
 }

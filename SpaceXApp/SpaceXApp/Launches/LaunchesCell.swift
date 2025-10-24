@@ -9,29 +9,34 @@ import SwiftUI
 import Kingfisher
 
 struct LaunchesCell: View {
-   private var presenters: LaunchesPresenter!
+    private let presenter: LaunchesPresenter
     @Binding var isParentGrid: Bool
-    
-    // Initialize all stored properties in the init method
+
     init(presenters: LaunchesPresenter, isParentGrid: Binding<Bool>) {
-        self.presenters = presenters
+        self.presenter = presenters
         self._isParentGrid = isParentGrid
     }
-    
+
     var body: some View {
-        HStack(alignment:.top,spacing:16){
-            KFImage(URL(string: self.presenters.image))
+        HStack(alignment: .top, spacing: 16) {
+            KFImage(URL(string: presenter.image))
                 .cancelOnDisappear(true)
                 .resizable()
-                .frame( width: 128,height: 128)
+                .scaledToFill()
+                .frame(width: 128, height: 128)
+                .clipped()
+
             if !isParentGrid {
-                // Show or hide VStack based on isParentGrid
-                VStack {
-                    Text(presenters.name)
-                    Text(presenters.date)
+                VStack(alignment: .leading, spacing: 8) {
+                    Text(presenter.name)
+                        .font(.headline)
+                    Text(presenter.date)
+                        .font(.subheadline)
+                        .foregroundColor(.secondary)
                 }
-            } 
+            }
         }
+        .padding(.vertical, 8)
     }
 }
 
