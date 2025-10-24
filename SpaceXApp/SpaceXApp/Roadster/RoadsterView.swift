@@ -10,50 +10,63 @@ import Kingfisher
 import WebKit
 
 struct RoadsterView: View {
-    @ObservedObject var viewModel:RoadsterViewModel = RoadsterViewModel()
+    @StateObject private var viewModel = RoadsterViewModel()
+
     var body: some View {
         NavigationView {
-            ScrollView{
-                VStack {
-                    if let roadster = self.viewModel.presenter {
-                        Text(roadster.title!).bold()
-                        KFImage(URL(string: roadster.image ?? ""))
+            ScrollView {
+                VStack(spacing: 16) {
+                    if let presenter = viewModel.presenter {
+                        Text(presenter.title ?? "SpaceX Roadster")
+                            .font(.title)
+                            .bold()
+
+                        KFImage(URL(string: presenter.image ?? ""))
                             .cancelOnDisappear(true)
                             .resizable()
-                            .frame( width: 265,height: 265)
-                       
-                        Text("Speed in \(roadster.speed ?? 0.0 ) K/H").bold()
-                        Text(roadster.detail  ?? "")
-                            .padding()
+                            .scaledToFit()
+                            .frame(maxWidth: 265, maxHeight: 265)
+                            .cornerRadius(12)
 
-                        YouTubeView(youtubeURL: "https://www.youtube.com/watch?v=wbSwFU6tY1c")
-                                                    .frame(width: 400)
-                                                    .padding()
+                        Text(String(format: "Speed: %.0f km/h", presenter.speed ?? 0))
+                            .font(.headline)
+
+                        Text(presenter.detail ?? "")
+                            .font(.body)
+                            .multilineTextAlignment(.leading)
+                            .padding(.horizontal)
+
+                        if let videoURL = presenter.videoURL, !videoURL.isEmpty {
+                            YouTubeView(youtubeURL: videoURL)
+                                .frame(height: 240)
+                                .padding()
+                        }
                     } else {
-                        Text("Can't load the data")
+                        ProgressView()
+                            .progressViewStyle(.circular)
+                            .padding()
                     }
-
-                   
                 }
-            }.navigationBarTitle("Roadster",displayMode:.inline)
-                .onAppear(perform:{
-                    self.viewModel.onAppear()
-                })
-       
+                .padding(.vertical)
+            }
+            .navigationBarTitle("Roadster", displayMode: .inline)
+        }
+        .onAppear {
+            viewModel.loadRoadsterIfNeeded()
         }
     }
 }
 
 
 struct YouTubeView: UIViewRepresentable {
-    @State public var youtubeURL:String = ""
+    let youtubeURL: String
     
     func makeUIView(context: Context) -> WKWebView {
         return WKWebView()
     }
     
     func updateUIView(_ uiView: WKWebView, context: Context) {
-        guard let url = URL(string: self.youtubeURL) else { return }
+        guard let url = URL(string: youtubeURL) else { return }
         uiView.scrollView.isScrollEnabled = false
         uiView.load(URLRequest(url: url))
     }
